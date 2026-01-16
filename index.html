@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>💖 𝓗𝓪𝓹𝓹𝔂 𝓑𝓲𝓻𝓽𝓱𝓭𝓪𝔂 𝓡𝓲𝔂𝓪!💖</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    /* ===== RESET ===== */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: "Poppins", system-ui, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #5F7A99;
+      color: #FFEE8C;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow-x: hidden;
+    }
+
+    /* ===== SHIMMER BACKGROUND ===== */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(
+        circle at top,
+        rgba(255, 238, 140, 0.15),
+        transparent 60%
+      );
+      animation: glowPulse 6s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    @keyframes glowPulse {
+      0%, 100% { opacity: 0.6; }
+      50% { opacity: 1; }
+    }
+
+    /* ===== CENTER CARD ===== */
+    .card {
+      text-align: center;
+      padding: 60px 40px;
+      border-radius: 28px;
+      background: rgba(255, 238, 140, 0.06);
+      box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(6px);
+      max-width: 520px;
+      width: 90%;
+      animation: float 5s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    /* ===== HEADLINE ===== */
+    h1 {
+      font-size: clamp(2.8rem, 6vw, 4rem);
+      letter-spacing: 1px;
+      background: linear-gradient(
+        90deg,
+        #FFEE8C,
+        #FFF6B3,
+        #FFEE8C
+      );
+      -webkit-background-clip: text;
+      color: transparent;
+      animation: shimmer 3s linear infinite;
+    }
+
+    @keyframes shimmer {
+      from { background-position: 0%; }
+      to { background-position: 200%; }
+    }
+
+    /* ===== SUBTEXT ===== */
+    .subtitle {
+      margin-top: 14px;
+      font-size: 1.2rem;
+      color: rgba(255, 238, 140, 0.85);
+    }
+
+    /* ===== BUTTONS ===== */
+    .btn-party {
+      margin-top: 40px;
+      padding: 14px 34px;
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 0.6px;
+      border: none;
+      border-radius: 16px;
+      cursor: pointer;
+      color: #FFEE8C;
+      background: linear-gradient(135deg, #4E6784, #3F5873);
+      position: relative;
+      overflow: hidden;
+      box-shadow:
+        0 10px 24px rgba(0, 0, 0, 0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .btn-party:hover {
+      transform: translateY(-3px);
+      box-shadow:
+        0 16px 36px rgba(0, 0, 0, 0.45),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-party::after {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -150%;
+      width: 60%;
+      height: 200%;
+      background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(255, 238, 140, 0.45),
+        transparent
+      );
+      transform: skewX(-20deg);
+    }
+
+    .btn-party:hover::after {
+      animation: shimmerSweep 0.8s ease forwards;
+    }
+
+    @keyframes shimmerSweep {
+      to { left: 150%; }
+    }
+
+    /* ===== CONFETTI ===== */
+    #confetti {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    .confetti-piece {
+      position: absolute;
+      width: 8px;
+      height: 14px;
+      top: 50%;
+      left: 50%;
+      background: #FFEE8C;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="card">
+    <h1>♡ 𝐻𝒶𝓅𝓅𝓎 𝐵𝒾𝓇𝓉𝒽𝒹𝒶𝓎 𝑅𝒾𝓎𝒶♡</h1>
+    <p class="subtitle">
+      I love you! Have a great birthday!✨
+    </p>
+
+    <button class="btn-party" id="partyBtn">
+      🎉 Party Again
+    </button>
+  </div>
+
+  <div id="confetti"></div>
+
+  <script>
+    const container = document.getElementById("confetti");
+    const partyBtn = document.getElementById("partyBtn");
+
+    const colors = [
+      "#FFEE8C",
+      "#FFF6B3",
+      "#FFD966",
+      "#FFEB99"
+    ];
+
+    function party() {
+      for (let i = 0; i < 160; i++) {
+        const piece = document.createElement("div");
+        piece.className = "confetti-piece";
+
+        const angle = Math.random() * Math.PI * 2;
+        const distance = Math.random() * window.innerWidth;
+
+        const x = Math.cos(angle) * distance;
+        const y = Math.sin(angle) * distance;
+
+        piece.style.background =
+          colors[Math.floor(Math.random() * colors.length)];
+
+        piece.animate(
+          [
+            { transform: "translate(-50%, -50%) scale(0.6)", opacity: 1 },
+            {
+              transform: `translate(${x}px, ${y}px) rotate(${Math.random() * 720}deg)`,
+              opacity: 0
+            }
+          ],
+          {
+            duration: 1600,
+            easing: "ease-out",
+            fill: "forwards"
+          }
+        );
+
+        container.appendChild(piece);
+        setTimeout(() => piece.remove(), 1700);
+      }
+    }
+
+    partyBtn.addEventListener("click", party);
+
+    // Auto party on load
+    setTimeout(party, 500);
+  </script>
+
+</body>
+</html>
